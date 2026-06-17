@@ -1,0 +1,72 @@
+.pop-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+
+.pop-intro__field {
+  position: absolute;
+  inset: 0;
+}
+
+.pop-intro__image {
+  position: absolute;
+  left: var(--pop-x);
+  top: var(--pop-y);
+  width: var(--pop-size);
+  height: auto;
+  opacity: 0.94;
+  transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1);
+  transform-origin: center;
+  user-select: none;
+  filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.32));
+
+  /* animation written out the long way so it is easier to read */
+  animation-name: cdi-logo-pop-away;
+  animation-duration: 520ms;
+  animation-timing-function: steps(4, end);
+  animation-delay: var(--pop-delay);
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes cdi-logo-pop-away {
+  /* 0ms: starts normal */
+  0% {
+    opacity: 0.94;
+    transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1);
+  }
+
+  /* about 156ms: pops bigger */
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1.36);
+  }
+
+  /* about 218ms: tiny hold at the top */
+  42% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1.36);
+  }
+
+  /* about 312ms: mostly gone */
+  60% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1.36);
+  }
+
+  /* 520ms: invisible, still big */
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--pop-rotation)) scale(1.36);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop-intro__image {
+    animation-duration: 260ms;
+  }
+}
